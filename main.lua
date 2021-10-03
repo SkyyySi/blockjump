@@ -13,11 +13,14 @@ function love.load()
 
 	base = require "base"
 	movement = require "movement"
-	x, y = 10, 10
+
+	windowwidth, windowheight = love.graphics.getDimensions()
+	w, h = 50, 50
+	x, y = (windowwidth / 2) - (w / 2), (windowheight / 2) - (h / 2)
 end
 
 function love.draw()
-	love.graphics.rectangle("fill", x, y, 50, 50)
+	love.graphics.rectangle("fill", x, y, w, h)
 end
 
 function love.update(dt)
@@ -28,9 +31,8 @@ function love.update(dt)
 		y = y + directions.y
 	end
 
-	local w, h = love.graphics.getDimensions()
 	if x < 0 then x = 0 end
-	if x > w - 50 then x = w - 50 end
+	if x > windowwidth - 50 then x = windowwidth - 50 end
 	if y < 0 then y = 0 end
-	if y > h - 50 then y = h - 50 end
+	if y > windowheight - 50 then y = windowheight - 50 end
 end
