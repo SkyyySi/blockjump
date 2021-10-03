@@ -11,7 +11,8 @@ function love.load()
 		inputtype = 1
 	end
 
-	base = require "base"
+	base     = require "base"
+	jump     = require "jump"
 	movement = require "movement"
 
 	windowwidth, windowheight = love.graphics.getDimensions()
@@ -19,11 +20,11 @@ function love.load()
 	x, y = (windowwidth / 2) - (w / 2), (windowheight / 2) - (h / 2)
 end
 
-function love.draw()
-	love.graphics.rectangle("fill", x, y, w, h)
-end
-
 function love.update(dt)
+	if love.keyboard.isDown("space") then
+		jump.jump()
+	end
+
 	local directions = movement.process(movement.get(dt * 500, inputtype), true)
 
 	if directions then
@@ -35,4 +36,8 @@ function love.update(dt)
 	if x > windowwidth - 50 then x = windowwidth - 50 end
 	if y < 0 then y = 0 end
 	if y > windowheight - 50 then y = windowheight - 50 end
+end
+
+function love.draw()
+	love.graphics.rectangle("fill", x, y, w, h)
 end

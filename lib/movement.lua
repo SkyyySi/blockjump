@@ -88,7 +88,7 @@ function movement.get(factor, pinputtype) --> table
 	return movement.current
 end
 
-function movement.process(pdirections, pstayonscreen, pwidth, pheight)
+function movement.process(pdirections, pstayonscreen)
 	-- Do nothing if `directions` is empty or if it doesn't contain anything.
 	if (not pdirections) or (pdirections == {}) then return end
 
@@ -113,19 +113,6 @@ function movement.process(pdirections, pstayonscreen, pwidth, pheight)
 
 	if (pdirections.up > 0) and (pdirections.down <= 0) then
 		movement_processed.y = -pdirections.up
-	end
-
-	if pstayonscreen then
-		pwidth  = pwidth  or 0
-		pheight = pheight or 0
-		local w, h = love.graphics.getDimensions()
-
-		if x < 0 then x = 0 end
-		if x > w - pwidth then x = w - pwidth end
-		if y < 0 then y = 0 end
-		if y > w - pheight then y = h - pheight end
-		--movement_processed.x = base.constrain(x, 0, w - pwidth)
-		--movement_processed.y = base.constrain(y, 0, h - pheight)
 	end
 
 	return movement_processed
